@@ -15,27 +15,27 @@ public class Barco
         List<Casillas> casillas = new List<Casillas>();
     }
 
-    public bool GetImpact()
+//     public bool GetImpact()
     
-    {
-        if (Impact < Size)
-        {
-            Impact++;
-        }
-        else
-        {
-            IsSunk();
-        }
+//     {
+//         if (Impact < Size)
+//         {
+//             Impact++;
+//         }
+//         else
+//         {
+//             IsSunk();
+//         }
        
-    }
+//     }
 
-    public void IsSunk ()
-    {
-        if (Impact >= Size)
-        {
-            Barco--;
-        }
-    }
+//     public void IsSunk ()
+//     {
+//         if (Impact >= Size)
+//         {
+//             Barco--;
+//         }
+//     }
 
 }
 
