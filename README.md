@@ -2,7 +2,7 @@
 
 ## Diseño del Sistema (UML)
 ![Descripción de la imagen](DIAGRAMA.png)
-El diseño se basa en una arquitectura de capas, separando la lógica de **Dominio** (reglas puras) de la **Presentación** (consola).
+El diseño se basa en una arquitectura de capas, separando la lógica de **Dominio** (reglas y mecánicas) de la **Presentación** (consola).
 
 ## Reglas del Juego
 1. **Dimensiones:** Tablero de 10x10 casillas (A1-J10).
