@@ -1,4 +1,4 @@
-/* public class Casilla
+  public class Casilla
 {
         public int Fila { get; }
         public int Columna { get; }
@@ -6,36 +6,26 @@
         public Barco? Barco { get; set; }
         public bool Disparada { get; set; }
 
-        public bool EstaVacia => Barco == null;
-        public bool EsImpacto => Disparada && Barco != null;
-        public bool EsAgua => Disparada && Barco == null;
-
         public Casilla(int fila, int columna)
         {
             Fila = fila;
             Columna = columna;
         }
     
-    public void IsEmpty ()
-    {
-        if (Barco = null)
-        {
-            
-        }
-        else
-        {
-            
-        }
-    }
+    // public object IsEmpty()
+    // {
+    //     return IsEmpty => Barco == null;
+    // }
 
-    public bool GetImpact()
-    {
-        
-    }
+    // public object IsImpact()
 
-    public void IsWater()
-    {
+    // {
+    //     if (Disparada = true)
         
-    }
+    //     return IsImpact => Disparada && Barco != null;
+    // }
+    // public object IsWater()
+    // {
+    //     return IsWater => Disparada && Barco == null;
+    // }
 }
- */

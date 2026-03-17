@@ -1,4 +1,4 @@
-/* public class Barco
+public class Barco
 {
     public string Name {get; set;}
     public int Size {get; set;} 
@@ -15,28 +15,5 @@
         List<Casillas> casillas = new List<Casillas>();
     }
 
-    public bool GetImpact()
-    
-    {
-        if (Impact < Size)
-        {
-            Impact++;
-        }
-        else
-        {
-            IsSunk();
-        }
-       
-    }
-
-    public void IsSunk ()
-    {
-        if (Impact >= Size)
-        {
-            Barco--;
-        }
-    }
 
 }
-
- */

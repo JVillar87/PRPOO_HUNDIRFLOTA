@@ -1,14 +1,14 @@
-// public class Flota
-// {
-//     List<Barco> flota;
+public class Flota
+{
+    List<Barco> flota;
     
-//     public Flota()
-//     {
-//         flota = new List<Barco>();
-//     }
+    public Flota()
+    {
+        flota = new List<Barco>();
+    }
 
-//     public void AnadirBarco(Barco barco)
-//     {
-//         flota.Add(barco);
-//     }
-// }
+    public void AnadirBarco(Barco barco)
+    {
+        flota.Add(barco);
+    }
+}
