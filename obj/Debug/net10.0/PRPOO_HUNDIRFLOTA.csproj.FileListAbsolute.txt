@@ -1,0 +1,15 @@
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\bin\Debug\net10.0\PRPOO_HUNDIRFLOTA.exe
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\bin\Debug\net10.0\PRPOO_HUNDIRFLOTA.deps.json
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\bin\Debug\net10.0\PRPOO_HUNDIRFLOTA.runtimeconfig.json
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\bin\Debug\net10.0\PRPOO_HUNDIRFLOTA.dll
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\bin\Debug\net10.0\PRPOO_HUNDIRFLOTA.pdb
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\obj\Debug\net10.0\PRPOO_HUNDIRFLOTA.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\obj\Debug\net10.0\PRPOO_HUNDIRFLOTA.AssemblyInfoInputs.cache
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\obj\Debug\net10.0\PRPOO_HUNDIRFLOTA.AssemblyInfo.cs
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\obj\Debug\net10.0\PRPOO_HUNDIRFLOTA.csproj.CoreCompileInputs.cache
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\obj\Debug\net10.0\PRPOO_HUNDIRFLOTA.sourcelink.json
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\obj\Debug\net10.0\PRPOO_HUNDIRFLOTA.dll
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\obj\Debug\net10.0\refint\PRPOO_HUNDIRFLOTA.dll
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\obj\Debug\net10.0\PRPOO_HUNDIRFLOTA.pdb
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\obj\Debug\net10.0\PRPOO_HUNDIRFLOTA.genruntimeconfig.cache
+C:\Users\MSI-GF75thin\Desktop\PRATICAS GITHUB(Sistemas 0483-Program 0485-Entorns 0487)\PRPOO_HUNDIRFLOTA\obj\Debug\net10.0\ref\PRPOO_HUNDIRFLOTA.dll
