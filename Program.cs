@@ -3,13 +3,12 @@
     private static void Main(string[] args)
     {
         // INICIAMOS
-        Tablero jugador = new();
-        Tablero cpu = new();
+        Tablero nuevaPartida = new Tablero();
 
+        nuevaPartida.Dibujar();
 
-
-        jugador.;
-        nuevoTablero.marEnemigo;
+        Console.WriteLine("Tablero iniciado");
+        Console.ReadLine();
     
     }
 }
