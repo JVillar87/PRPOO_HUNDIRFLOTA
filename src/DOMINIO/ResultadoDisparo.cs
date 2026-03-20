@@ -1,4 +1,6 @@
-// public class Flota
-// {
-//     List<Barco> flota;
-    
+public enum ResultadoDisparo
+{
+    Agua,    
+    Tocado,
+    Hundido
+}

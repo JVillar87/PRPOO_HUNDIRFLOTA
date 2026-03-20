@@ -11,21 +11,25 @@
             Fila = fila;
             Columna = columna;
         }
-    
-    // public object IsEmpty()
-    // {
-    //     return IsEmpty => Barco == null;
-    // }
 
-    // public object IsImpact()
+    public bool EstaVacia()
+    {
+        return Barco == null;
+    }
 
-    // {
-    //     if (Disparada = true)
-        
-    //     return IsImpact => Disparada && Barco != null;
-    // }
-    // public object IsWater()
-    // {
-    //     return IsWater => Disparada && Barco == null;
-    // }
+    public bool EsImpacto()
+    {
+        return Disparada && Barco != null;
+    }
+
+    public bool EsAgua()
+    {
+        return Disparada && Barco == null;
+    }
+
+    public void ColocarBarco (Barco barco)
+    {
+        Barco = barco;
+    }
 }
+
