@@ -1,65 +1,83 @@
-using System.Reflection.Metadata;
-
 public class Tablero
-{    
-    private int Espacios = 10;
-    private Casilla[,] marJugador = new Casilla[10, 10];
-    private Casilla[,] marEnemigo = new Casilla[10, 10];
-
-    public Tablero()
     {
-      StartTableros();
-    }
+        private const int BOARD = 10;
+        private Casilla[,] celdas = new Casilla[BOARD, BOARD];
+        private List<Barco> barcosEnTablero = new List<Barco>();
 
-    private void StartTableros()
-   {
-      for (int i = 0; i < Espacios; i++)
-      {
-         marJugador[i,j] = new Casilla();
-         marEnemigo[i,j] = new Casilla();
-      }
-   }
-
-   public void Dibujar()
-{
-    
-    Console.WriteLine("TABLERO DEL JUGADOR");
-    Console.WriteLine("A B C D E F G H I J"); 
-    Console.WriteLine("---------------------");
-
-    for (int fila = 0; fila < 10; fila++)
-    {
-        
-        Console.Write((fila + 1).ToString().PadLeft(2) + "| ");
-
-        for (int col = 0; col < 10; col++)
+        public Tablero()
         {
             
-            Casilla c = marJugador[fila, col];
-
-            
-            if (c.EsImpacto()) 
-                Console.Write("X "); // IMPACTO
-            else if (c.EsAgua()) 
-                Console.Write("~ "); // AGUA
-            else if (c.ColocarBarco()) 
-                Console.Write("B "); // MOSTRAR
-            else 
-                Console.Write(". "); // VACIA
+            for (int f = 0; f < BOARD; f++)
+            {
+                for (int c = 0; c < BOARD; c++)
+                {
+                    celdas[f, c] = new Casilla(f, c);
+                }
+            }
         }
-        Console.WriteLine("|"); // CERRAMOS FILA
-    }
-    Console.WriteLine("  ---------------------");
-}
+        
+        public int BarcosRestantes => barcosEnTablero.Count(b => !b.EstaHundido());
 
-}
+        public bool TodosHundidos => barcosEnTablero.Count > 0 && barcosEnTablero.All(b => b.EstaHundido());
 
-// Colores y símbolos
-/*? indica la posición provisional del barco antes de confirmar.
-La posición se muestra en verde si es válida y en rojo si es inválida.
-/*| Símbolo | Estado | Color de consola |
+        public Casilla ObtenerCasilla(int fila, int columna)
+        {
+            if (fila < 0 || fila >= BOARD || columna < 0 || columna >= BOARD) return null;
+            return celdas[fila, columna];
+        }
 
-| . | Casilla vacía | Gris oscuro | | S | Barco propio visible | Verde | | ~ | 
-Agua (disparo fallado) | Azul | | X | Impacto en barco | Amarillo | 
-| # | Barco hundido | Rojo |*/
+        public bool PuedeColocar(Barco barco, int fila, int columna, bool esHorizontal)
+        {
+            int longitud = barco.Size;
 
+            for (int i = 0; i < barco.Size; i++)
+            {
+                int fActual = esHorizontal ? fila : fila + i;
+                int cActual = esHorizontal ? columna + i : columna;
+
+               
+                if (fActual >= BOARD || cActual >= BOARD || fActual < 0 || cActual < 0) 
+                    return false;
+
+                if (!EstaZonaDespejada(fActual, cActual))
+                    return false;
+            }
+            return true;
+        }
+
+        private bool EstaZonaDespejada(int fila, int columna)
+        {
+            
+            for (int f = fila - 1; f <= fila + 1; f++)
+            {
+                for (int c = columna - 1; c <= columna + 1; c++)
+                {
+                    // Si la vecina está dentro del tablero y tiene un barco
+                    if (f >= 0 && f < BOARD && c >= 0 && c < BOARD)
+                    {
+                        if (celdas[f, c].TieneBarco) return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public void ColocarBarco(Barco barco, int fila, int columna, bool esHorizontal)
+        {
+            if (!PuedeColocar(barco, fila, columna, esHorizontal))
+                throw new InvalidOperationException("Posición no válida por límites o adyacencia.");
+
+            for (int i = 0; i < barco.Longitud; i++)
+            {
+                int f = esHorizontal ? fila : fila + i;
+                int c = esHorizontal ? columna + i : columna;
+
+                celdas[f, c].AsignarBarco(barco);
+            }
+            barcosEnTablero.Add(barco);
+        }
+
+        public ResultadoDisparo Disparar(int fila, int columna)
+        {
+            Casilla casilla = ObtenerCasilla(fila, columna);
+            if (casilla == null || casilla.FueDisparada

@@ -10,12 +10,17 @@
         {
             Fila = fila;
             Columna = columna;
+            Disparada = false;
         }
 
     public Casilla()
     {
     }
 
+    public bool AsignarBarco(Barco barco)
+    {
+        Barco = barco;
+    }
     public bool EstaVacia()
     {
         return Barco == null;
@@ -31,9 +36,10 @@
         return Disparada && Barco == null;
     }
 
-    public void ColocarBarco (Barco barco)
+    public void RegistroDisparoo()
     {
-        Barco = barco;
+        Disparada = true;
     }
+
 }
 
