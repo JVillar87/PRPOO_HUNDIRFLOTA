@@ -12,6 +12,10 @@
             Columna = columna;
         }
 
+    public Casilla()
+    {
+    }
+
     public bool EstaVacia()
     {
         return Barco == null;
