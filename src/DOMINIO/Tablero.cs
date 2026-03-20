@@ -38,14 +38,16 @@ public class Tablero
             Casilla c = marJugador[fila, col];
 
             
-            if (!(c.Disparada && c.Barco)) 
-                Console.Write("X "); //DISPARO
-            else if (c.Disparada) 
-                Console.Write("~ "); //AGUA
-                else 
-                Console.Write(". "); //VACIA
+            if (c.EsImpacto()) 
+                Console.Write("X "); // IMPACTO
+            else if (c.EsAgua()) 
+                Console.Write("~ "); // AGUA
+            else if (c.ColocarBarco()) 
+                Console.Write("B "); // MOSTRAR
+            else 
+                Console.Write(". "); // VACIA
         }
-        Console.WriteLine("|"); 
+        Console.WriteLine("|"); // CERRAMOS FILA
     }
     Console.WriteLine("  ---------------------");
 }
