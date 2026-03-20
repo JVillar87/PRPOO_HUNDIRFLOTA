@@ -3,9 +3,12 @@
     private static void Main(string[] args)
     {
         // INICIAMOS
-        Tablero = nuevoTablero();
+        Tablero jugador = new();
+        Tablero cpu = new();
 
-        nuevoTablero.marJugador;
+
+
+        jugador.;
         nuevoTablero.marEnemigo;
     
     }
