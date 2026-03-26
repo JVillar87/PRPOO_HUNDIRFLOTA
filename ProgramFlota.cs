@@ -1,14 +1,15 @@
-﻿internal class Program
+﻿using HundirLaFlota.Motor;
+
+namespace HundirLaFlota;
+
+class Program
 {
-    private static void Main(string[] args)
+    static void Main(string[] args)
     {
-        // INICIAMOS
-        Tablero nuevaPartida = new Tablero();
+        Juego miPartida = new Juego("Capitán Nemo");
+        miPartida.Iniciar();
 
-        nuevaPartida.Dibujar();
-
-        Console.WriteLine("Tablero iniciado");
-        Console.ReadLine();
-    
+        Console.WriteLine("Presiona cualquier tecla para salir...");
+        Console.ReadKey();
     }
 }

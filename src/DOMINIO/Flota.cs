@@ -1,10 +1,10 @@
-public class Flota
+namespace HundirLaFlota.Dominio;
+
+public static class Flota
 {
-    private List<Barco> flota;
-    
-    public Flota()
+        public static List<Barco> CrearFlota()
     {
-        flota = new List<Barco>()
+        return new List<Barco>
         {
             new Barco("Portaaviones", 5),
             new Barco("Acorazado", 4),
@@ -13,13 +13,4 @@ public class Flota
             new Barco("Patrullera", 2)
         };
     }
-
-    public void AddBarco(Barco barco)
-    {
-        if (barco != null)
-        {
-            flota.Add(barco);
-        }
-    }
-
 }

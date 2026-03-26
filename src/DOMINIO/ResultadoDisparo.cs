@@ -1,6 +1,7 @@
 public enum ResultadoDisparo
-{
-    Agua,    
-    Tocado,
-    Hundido
+{ 
+    Agua, //CASILLA VACÍA
+    Impacto, //TOCADO
+    Hundido, //DERROTADO
+    YaDisparado //CASILLA YA ATACADA PREVIAMENTE
 }

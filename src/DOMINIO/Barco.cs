@@ -1,31 +1,24 @@
+namespace HundirLaFlota.Dominio;
+
 public class Barco
 {
-    public string Name {get; set;}
-    public int Size {get; set;} 
-    public int Impact {get; set;}
-    private List<Casilla> casillas = new List<Casilla>();
-    public Barco (string name, int size, int Impact, List<Casilla> casillas)
-    {
-        this.Name = name;
-        this.Size = size;
-        this.Impact = 0;
-        this.casillas = casillas;
-    } 
-    
-     public Barco (string name, int size)
-    {
-        this.Name = name;
-        this.Size = size;
-     
-    } 
+    public string Nombre { get; }
+    public int Size{ get; }
+    public int Impactos { get; private set; } = 0;
+    public List<Casilla> Casillas { get; } = new();
 
-    public void RegistrarImpacto()
+    public Barco(string nombre, int size)
     {
-        Impact++;
+        Nombre = nombre;
+        Size= size;
     }
 
+    public void RecibirImpacto()
+    {
+        Impactos++;
+    }
     public bool EstaHundido()
     {
-        return Impact >= casillas.Count;
+        return Impactos >= Size;
     }
 }
