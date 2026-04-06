@@ -14,12 +14,13 @@ public class Tablero
 
     public Casilla ObtenerCasilla(int f, int c) => matriz[f, c];
 
-    public bool PuedeColocar(int fila, int col, int tam, bool horizontal)
+    public bool PuedeColocar(Barco barco, int fila, int columna, bool esHorizontal)
     {
-        for (int i = 0; i < tam; i++)
+        
+        for (int i = 0; i < barco.Size; i++)
         {
-            int r = horizontal ? fila : fila + i;
-            int c = horizontal ? col + i : col;
+            int r = esHorizontal ? fila : fila + i;
+            int c = esHorizontal ? columna + i : columna;
 
             if (r < 0 || r >= 10 || c < 0 || c >= 10) 
             {
@@ -38,12 +39,12 @@ public class Tablero
         return true;
     }
 
-    public void ColocarBarco(Barco barco, int fila, int col, bool horizontal)
+    public void ColocarBarco(Barco barco, int fila, int columna, bool esHorizontal)
     {
         for (int i = 0; i < barco.Size; i++)
         {
-            int r = horizontal ? fila : fila + i;
-            int c = horizontal ? col + i : col;
+            int r = esHorizontal ? fila : fila + i;
+            int c = esHorizontal ? columna + i : columna;
             matriz[r, c].Barco = barco;
             barco.Casillas.Add(matriz[r, c]);
         }
@@ -58,9 +59,11 @@ public class Tablero
         casilla.Disparada = true;
         if (casilla.EstaVacia()) return ResultadoDisparo.Agua;
 
-        casilla.Barco!.RecibirImpacto();
-        return casilla.Barco.EstaHundido() ? ResultadoDisparo.Hundido : ResultadoDisparo.Impacto;
+        casilla.Barco?.RecibirImpacto();
+        return casilla.Barco?.EstaHundido() ?? false ? ResultadoDisparo.Hundido : ResultadoDisparo.Impacto;
     }
+
+    public int BarcosRestantes => Barcos.Count(b => !b.EstaHundido());
 
     public bool TodosHundidos => Barcos.All(b => b.EstaHundido());
 }

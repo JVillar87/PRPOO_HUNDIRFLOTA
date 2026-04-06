@@ -34,7 +34,7 @@ public class GestorGuardado
         }
     }
 
-    public bool ExistPartida => File.Exists(NombreArchivo);
+    public bool ExistePartidaGuardada => File.Exists(NombreArchivo);
 
     public static void EliminarGuardado()
     {
