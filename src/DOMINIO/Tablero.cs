@@ -3,7 +3,7 @@ namespace HundirLaFlota.Dominio;
 public class Tablero
 {
     private Casilla[,] matriz = new Casilla[10, 10];
-    private List<Barco> navios = new List<Barco>();
+    private List<Barco> navios = new List<Barco>();    
 
     public Tablero()
     {
@@ -12,7 +12,29 @@ public class Tablero
                 matriz[f, c] = new Casilla(f, c);
     }
 
-    public Casilla ObtenerCasilla(int f, int c) => matriz[f, c];
+    public Casilla ObtenerCasilla(int f, int c) 
+    {
+        return matriz[f, c];
+    }
+
+    public bool ColocarBarco(Barco barco, int fila, int columna, bool esHorizontal)
+    {
+        for (int i = 0; i < barco.Size; i++)
+        {
+            int f = fila;
+            int c = columna;
+            if (esHorizontal)
+                c = columna + i;
+            else
+                f = fila + i;
+
+            matriz[f, c].Barco = barco;
+            barco.Casillas.Add(matriz[f, c]);
+        }
+        navios.Add(barco);
+        return true;
+    }
+
 
     public bool PuedeColocar(Barco barco, int fila, int columna, bool esHorizontal)
     {
@@ -39,18 +61,6 @@ public class Tablero
         return true;
     }
 
-    public void ColocarBarco(Barco barco, int fila, int columna, bool esHorizontal)
-    {
-        for (int i = 0; i < barco.Size; i++)
-        {
-            int r = esHorizontal ? fila : fila + i;
-            int c = esHorizontal ? columna + i : columna;
-            matriz[r, c].Barco = barco;
-            barco.Casillas.Add(matriz[r, c]);
-        }
-        Barcos.Add(barco);
-    }
-
     public ResultadoDisparo Disparar(int f, int c)
     {
         var casilla = matriz[f, c];
@@ -62,8 +72,6 @@ public class Tablero
         casilla.Barco?.RecibirImpacto();
         return casilla.Barco?.EstaHundido() ?? false ? ResultadoDisparo.Hundido : ResultadoDisparo.Impacto;
     }
-
-    public List<Barco> Barcos => navios;
 
     public int BarcosRestantes
     {

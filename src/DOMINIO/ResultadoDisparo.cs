@@ -5,3 +5,4 @@ public enum ResultadoDisparo
     Hundido, //DERROTADO
     YaDisparado //CASILLA YA ATACADA PREVIAMENTE
 }
+

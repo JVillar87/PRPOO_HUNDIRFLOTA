@@ -40,11 +40,11 @@ class Program
         {
             Console.Write($"  {letras[f]}   ");
             for (int c = 0; c < 10; c++)
-                ImprimirCasilla(propio.ObtenerCasilla(f, c), true);
+                ImprimirCasilla(Jugador.ObtenerCasilla(f, c), true);
 
             Console.Write($"      {letras[f]}   ");
             for (int c = 0; c < 10; c++)
-                ImprimirCasilla(enemigo.ObtenerCasilla(f, c), false);
+                ImprimirCasilla(CPU.ObtenerCasilla(f, c), false);
 
             Console.WriteLine();
         }
