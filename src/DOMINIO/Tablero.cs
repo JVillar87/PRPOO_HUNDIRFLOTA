@@ -2,8 +2,8 @@ namespace HundirLaFlota.Dominio;
 
 public class Tablero
 {
-    private readonly Casilla[,] matriz = new Casilla[10, 10];
-    public List<Barco> Barcos { get; } = new();
+    private Casilla[,] matriz = new Casilla[10, 10];
+    private List<Barco> navios = new List<Barco>();
 
     public Tablero()
     {
@@ -16,13 +16,13 @@ public class Tablero
 
     public bool PuedeColocar(Barco barco, int fila, int columna, bool esHorizontal)
     {
-        
+
         for (int i = 0; i < barco.Size; i++)
         {
             int r = esHorizontal ? fila : fila + i;
             int c = esHorizontal ? columna + i : columna;
 
-            if (r < 0 || r >= 10 || c < 0 || c >= 10) 
+            if (r < 0 || r >= 10 || c < 0 || c >= 10)
             {
                 return false;
             }
@@ -63,7 +63,26 @@ public class Tablero
         return casilla.Barco?.EstaHundido() ?? false ? ResultadoDisparo.Hundido : ResultadoDisparo.Impacto;
     }
 
-    public int BarcosRestantes => Barcos.Count(b => !b.EstaHundido());
+    public List<Barco> Barcos => navios;
 
-    public bool TodosHundidos => Barcos.All(b => b.EstaHundido());
+    public int BarcosRestantes
+    {
+        get
+        {
+            int count = 0;
+            foreach (Barco b in navios)
+                if (!b.EstaHundido()) count++;
+            return count;
+        }
+    }
+
+    public bool TodosHundidos
+    {
+        get
+        {
+            foreach (Barco b in navios)
+                if (!b.EstaHundido()) return false;
+            return true;
+        }
+    }
 }

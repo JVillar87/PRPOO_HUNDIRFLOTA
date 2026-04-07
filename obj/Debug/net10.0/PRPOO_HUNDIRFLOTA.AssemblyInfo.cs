@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PRPOO_HUNDIRFLOTA")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+deb3048c16b851a45ad71461be65cc73e257df9e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b1d5a11a0975f5a9b6a016c53340e8855c823827")]
 [assembly: System.Reflection.AssemblyProductAttribute("PRPOO_HUNDIRFLOTA")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PRPOO_HUNDIRFLOTA")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

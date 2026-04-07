@@ -1,6 +1,7 @@
 using HundirLaFlota.Dominio;
-using HundirLaFlota.Motor;  
+using HundirLaFlota.Motor;
 namespace HundirLaFlota.Datos;
+
 public class ConfigJuego
 {
     public string NombreJugador { get; set; } = "Jugador";
@@ -25,16 +26,5 @@ public class ConfigJuego
     {
         string json = System.Text.Json.JsonSerializer.Serialize(this);
         File.WriteAllText(rutaArchivo, json);
-    }
-
-    public MostrarColores ToMostrarColores()
-    {
-        return DificultadCPU switch
-        {
-            NivelDificultad.Facil => MostrarColores.Verde,
-            NivelDificultad.Medio => MostrarColores.Amarillo,
-            NivelDificultad.Dificil => MostrarColores.Rojo,
-            _ => MostrarColores.Amarillo
-        };
     }
 }
