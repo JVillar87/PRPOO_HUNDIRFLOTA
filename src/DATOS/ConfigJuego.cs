@@ -8,8 +8,6 @@ public class ConfigJuego
     public NivelDificultad DificultadCPU { get; set; } = NivelDificultad.Medio;
     public DateTime FechaConfiguracion { get; set; } = DateTime.Now;
 
-    public ConfigJuego() { }
-
     public ConfigJuego(string nombreJugador, NivelDificultad dificultadCPU)
     {
         NombreJugador = nombreJugador;

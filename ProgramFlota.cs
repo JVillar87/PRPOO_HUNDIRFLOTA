@@ -54,7 +54,7 @@ class Program
     {
         if (casilla.EsImpacto())
         {
-            if (casilla.Barco.EstaHundido())
+            if (casilla.Barco?.EstaHundido() == true)
                 Console.Write("  #");
             else
                 Console.Write("  X");
