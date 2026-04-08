@@ -12,7 +12,9 @@ public class Barco
         Nombre = nombre;
         Size= size;
     }
-
+    /// <summary>
+    /// Incrementa el contador de impactos. 
+    /// </summary>
     public void RecibirImpacto()
     {
         Impactos++;
@@ -20,5 +22,10 @@ public class Barco
     public bool EstaHundido()
     {
         return Impactos >= Size;
+    }
+
+    public double Salud()
+    {
+        return Size == 0 ? 0 : Math.Round((double)(Size - Impactos) / Size * 100, 1);
     }
 }

@@ -19,14 +19,12 @@ public class Tablero
 
     public bool ColocarBarco(Barco barco, int fila, int columna, bool esHorizontal)
     {
+        if (!PuedeColocar(barco, fila, columna, esHorizontal)) return false;
+
         for (int i = 0; i < barco.Size; i++)
         {
-            int f = fila;
-            int c = columna;
-            if (esHorizontal)
-                c = columna + i;
-            else
-                f = fila + i;
+            int f = esHorizontal ? fila : fila + i;
+            int c = esHorizontal ? columna + i : columna;
 
             matriz[f, c].Barco = barco;
             barco.Casillas.Add(matriz[f, c]);
@@ -38,25 +36,27 @@ public class Tablero
 
     public bool PuedeColocar(Barco barco, int fila, int columna, bool esHorizontal)
     {
+        int filaFinal = esHorizontal ? fila : fila + barco.Size - 1;
+        int columnaFinal = esHorizontal ? columna + barco.Size - 1 : columna;
+
+        //Comprobar límites
+        if (fila < 0 || filaFinal >= 10 || columna < 0 || columnaFinal >= 10) return false;
 
         for (int i = 0; i < barco.Size; i++)
         {
             int r = esHorizontal ? fila : fila + i;
             int c = esHorizontal ? columna + i : columna;
 
-            if (r < 0 || r >= 10 || c < 0 || c >= 10)
-            {
-                return false;
-            }
-
-            // Regla de adyacencia (incluye diagonales)
+            // Regla de adyacencia
             for (int df = -1; df <= 1; df++)
+            {
                 for (int dc = -1; dc <= 1; dc++)
                 {
                     int nr = r + df, nc = c + dc;
                     if (nr >= 0 && nr < 10 && nc >= 0 && nc < 10 && !matriz[nr, nc].EstaVacia())
                         return false;
                 }
+            }
         }
         return true;
     }
@@ -70,7 +70,10 @@ public class Tablero
         if (casilla.EstaVacia()) return ResultadoDisparo.Agua;
 
         casilla.Barco?.RecibirImpacto();
-        return casilla.Barco?.EstaHundido() ?? false ? ResultadoDisparo.Hundido : ResultadoDisparo.Impacto;
+        if (casilla.Barco != null && casilla.Barco.EstaHundido())
+            return ResultadoDisparo.Hundido;
+            
+        return ResultadoDisparo.Impacto;
     }
 
     public int BarcosRestantes

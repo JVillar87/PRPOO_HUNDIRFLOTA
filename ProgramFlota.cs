@@ -1,75 +1,88 @@
-﻿using HundirLaFlota.Motor;
+﻿using HundirLaFlota.Datos;
 using HundirLaFlota.Dominio;
-using HundirLaFlota.Datos;
-using HundirLaFlota;
+using HundirLaFlota.Presentacion;
+using HundirLaFlota.Motor;
+using System.Threading;
 
-namespace HundirLaFlota;
-
-class Program
+namespace HundirLaFlota
 {
-    static void Main(string[] args)
+    class Program
     {
-        Tablero propio = new Tablero();
-        Tablero enemigo = new Tablero();
-
-        Barco b1 = new Barco("Acorazado", 4);
-        Barco b2 = new Barco("Destructor", 3);
-
-        propio.ColocarBarco(b1, 1, 1, true);
-        propio.ColocarBarco(b2, 4, 2, false);
-
-        enemigo.Disparar(2, 4);
-        enemigo.Disparar(5, 5);
-
-        MostrarTablerosBatalla(propio, enemigo);
-    }
-
-    static void MostrarTablerosBatalla(Tablero Jugador, Tablero CPU)
-    {
-        string[] letras = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
-
-        Console.Write("      ");
-        for (int c = 1; c <= 10; c++)
-            Console.Write($"{c,3}");
-        Console.Write("      ");
-        for (int c = 1; c <= 10; c++)
-            Console.Write($"{c,3}");
-        Console.WriteLine();
-
-        for (int f = 0; f < 10; f++)
+        static void Main(string[] args)
         {
-            Console.Write($"  {letras[f]}   ");
-            for (int c = 0; c < 10; c++)
-                ImprimirCasilla(Jugador.ObtenerCasilla(f, c), true);
+            Console.Title = "Hundir la Flota - Proyecto POO";
+            bool salir = false;
 
-            Console.Write($"      {letras[f]}   ");
-            for (int c = 0; c < 10; c++)
-                ImprimirCasilla(CPU.ObtenerCasilla(f, c), false);
+            while (!salir)
+            {
+                MostrarMenuPrincipal();
+                string opcion = Console.ReadLine() ?? "";
 
-            Console.WriteLine();
+                switch (opcion)
+                {
+                    case "1":
+                        IniciarNuevaPartida();
+                        break;
+                    case "2":
+                        CargarPartidaGuardada();
+                        break;
+                    case "3":
+                        MostrarInstrucciones();
+                        break;
+                    case "4":
+                        salir = true;
+                        break;
+                    default:
+                        Renderizador.MostrarError("Opción no válida. Intente de nuevo.");
+                        Thread.Sleep(1500);
+                        break;
+                }
+            }
         }
-    }
 
-    static void ImprimirCasilla(Casilla casilla, bool esProprio)
-    {
-        if (casilla.EsImpacto())
+        static void MostrarMenuPrincipal()
         {
-            if (casilla.Barco?.EstaHundido() == true)
-                Console.Write("  #");
-            else
-                Console.Write("  X");
+            Console.Clear();
+            ArteAscii.MostrarLogo(); // Usamos tu nuevo arte ASCII centrado
+            Console.WriteLine("\n" + new string(' ', 15) + "1. Nueva Partida");
+            Console.WriteLine(new string(' ', 15) + "2. Cargar Partida");
+            Console.WriteLine(new string(' ', 15) + "3. Instrucciones");
+            Console.WriteLine(new string(' ', 15) + "4. Salir");
+            Console.Write("\n" + new string(' ', 15) + "Seleccione una opción: ");
         }
-        else if (casilla.EsAgua())
+
+        static void IniciarNuevaPartida()
         {
-            Console.Write("  ~");
+            Console.Clear();
+            Console.WriteLine("Iniciando nueva partida...");
+            string nombre = "Jugador"; // Podríamos pedir el nombre al usuario aquí
+
+            ConfigJuego config = new ConfigJuego(nombre, NivelDificultad.Facil);
+            Juego partida = new Juego(config);
+            partida.Iniciar();
         }
-        else if (!casilla.EstaVacia() && esProprio)
+
+        static void CargarPartidaGuardada()
         {
-            Console.Write("  S");
+            Console.Clear();
+            Renderizador.MostrarMensaje("Cargando partida guardada...");
+            Thread.Sleep(1000); // Simula tiempo de carga
+
+            Console.WriteLine("CARGANDO PARTIDA...");
+            Console.WriteLine("Presiona cualquier tecla para continuar...");
+            Console.ReadKey();
         }
-        else
+
+
+        static void MostrarInstrucciones()
         {
-            Console.Write("  .");
+            Console.Clear();
+            Console.WriteLine("INSTRUCCIONES:");
+            Console.WriteLine("1. Coloca tus barcos en el tablero.");
+            Console.WriteLine("2. Dispara a las coordenadas enemigas para hundir su flota.");
+            Console.WriteLine("3. El primer jugador en hundir toda la flota enemiga gana.");
+            Console.WriteLine("Presiona cualquier tecla para volver al menú...");
+            Console.ReadKey();
         }
     }
 }

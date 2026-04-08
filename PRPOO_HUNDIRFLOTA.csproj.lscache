@@ -87,7 +87,7 @@ src/TESTS/
  TableroTest.cs
 
 [metadataReferences]
-../../../../../Program Files/dotnet/packs/Microsoft.NETCore.App.Ref/10.0.3/ref/net10.0/
+../../../../../Program Files/dotnet/packs/Microsoft.NETCore.App.Ref/10.0.4/ref/net10.0/
  Microsoft.CSharp.dll
  Microsoft.VisualBasic.Core.dll
  Microsoft.VisualBasic.dll
@@ -257,17 +257,17 @@ src/TESTS/
  WindowsBase.dll
 
 [analyzerReferences]
-../../../../../Program Files/dotnet/packs/Microsoft.NETCore.App.Ref/10.0.3/analyzers/dotnet/cs/
+../../../../../Program Files/dotnet/packs/Microsoft.NETCore.App.Ref/10.0.4/analyzers/dotnet/cs/
  Microsoft.Interop.ComInterfaceGenerator.dll
  Microsoft.Interop.JavaScript.JSImportGenerator.dll
  Microsoft.Interop.LibraryImportGenerator.dll
  Microsoft.Interop.SourceGeneration.dll
  System.Text.Json.SourceGeneration.dll
  System.Text.RegularExpressions.Generator.dll
-../../../../../Program Files/dotnet/sdk/10.0.103/Sdks/Microsoft.NET.Sdk/analyzers/
+../../../../../Program Files/dotnet/sdk/10.0.104/Sdks/Microsoft.NET.Sdk/analyzers/
  Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll
  Microsoft.CodeAnalysis.NetAnalyzers.dll
 
 [analyzerConfigFiles]
-../../../../../Program Files/dotnet/sdk/10.0.103/Sdks/Microsoft.NET.Sdk/analyzers/build/config/analysislevel_10_default.globalconfig
+../../../../../Program Files/dotnet/sdk/10.0.104/Sdks/Microsoft.NET.Sdk/analyzers/build/config/analysislevel_10_default.globalconfig
 obj/Debug/net10.0/PRPOO_HUNDIRFLOTA.GeneratedMSBuildEditorConfig.editorconfig

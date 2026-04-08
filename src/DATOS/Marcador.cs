@@ -1,5 +1,3 @@
-using HundirLaFlota.Dominio;
-using HundirLaFlota.Motor;
 namespace HundirLaFlota.Datos;
 
 public class Marcador
@@ -10,6 +8,9 @@ public class Marcador
     public double Puntuacion { get; set; }
     public DateTime Fecha { get; set; }
 
+    //Constructor JSON (igual que EstadoPartida)
+    public Marcador() { }
+
     public Marcador(string nombreJugador, int disparos, double precision, double puntuacion, DateTime fecha)
     {
         NombreJugador = nombreJugador;
@@ -19,8 +20,14 @@ public class Marcador
         Fecha = fecha;
     }
 
-    public double CalcularPrecision(int aciertos)
+    /// <summary>
+    /// Calcula la precisión de aciertos total disparos.
+    /// </summary>
+    /// <param name="aciertos"></param>
+    /// <returns></returns>
+
+    public double CalcularPrecision(int aciertos, int disparosTotales)
     {
-        return Disparos == 0 ? 0 : Math.Round((double)aciertos / Disparos * 100, 1);
+        return disparosTotales == 0 ? 0 : Math.Round((double)aciertos / disparosTotales * 100, 1);
     }
 }

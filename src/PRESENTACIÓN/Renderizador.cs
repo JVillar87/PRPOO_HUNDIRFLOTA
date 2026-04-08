@@ -1,7 +1,7 @@
-namespace HundirLaFlota.Presentacion;
-
 using HundirLaFlota.Dominio;
 using HundirLaFlota.Motor;
+
+namespace HundirLaFlota.Presentacion;
 
 public static class Renderizador
 {
@@ -12,6 +12,19 @@ public static class Renderizador
         Console.WriteLine("Presiona Enter para comenzar.");
         Console.ReadLine();
     }
+
+    public static void MostrarMensaje(string mensaje)
+    {
+        Console.WriteLine(mensaje);
+    }
+
+    public static void MostrarError(string mensaje)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"Error: {mensaje}");
+        Console.ResetColor();
+    }
+
     public static void MostrarTablerosBatalla(Tablero propio, Tablero enemigo)
     {
         Console.Clear();
@@ -41,85 +54,74 @@ public static class Renderizador
             Console.WriteLine();
         }
     }
-
-    public static void MostrarTableroColocacion(Tablero tablero)
-    {
-        Console.Clear();
-        Console.WriteLine("      COLOCA TUS BARCOS");
-        Console.WriteLine("   1 2 3 4 5 6 7 8 9 10");
-
-        for (int f = 0; f < 10; f++)
-        {
-            char letra = (char)('A' + f);
-            Console.Write($"{letra} ");
-            for (int c = 0; c < 10; c++)
-            {
-                var cas = tablero.ObtenerCasilla(f, c);
-                DibujarCasilla(cas, ocultarBarco: false);
-            }
-            Console.WriteLine();
-        }
-    }
-
     public static void DibujarCasilla(Casilla casilla, bool ocultarBarco)
     {
         if (casilla.Disparada)
         {
             if (casilla.EstaVacia())
-                Console.Write("~ ");
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("~ "); // AGUA
+            }
             else
-                Console.Write("X ");
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("X "); // IMPACTO
+            }
         }
         else
         {
+            // Si hay barco y no está oculto (tablero propio)
             if (!casilla.EstaVacia() && !ocultarBarco)
-                Console.Write("O ");
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Write("S "); // BARCO PROPIO
+            }
             else
-                Console.Write(". ");
+            {
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                Console.Write(". "); // VACÍO
+            }
         }
+        Console.ResetColor();
     }
 
-    public static void PedirCoordenadas(out int fila, out int columna)
+    public static (int fila, int columna) PedirCoordenadas()
     {
         while (true)
         {
-            Console.Write("Introduce coordenadas (Ej: A5): ");
+            Console.Write("\nIntroduce posición (Ej: A5): ");
             string input = Console.ReadLine()?.Trim().ToUpper() ?? "";
-            if (input.Length >= 2 &&
-                char.IsLetter(input[0]) &&
-                int.TryParse(input.Substring(1), out int col) &&
-                col >= 1 && col <= 10)
+            if (TryParsePosicion(input, out int f, out int c))
             {
-                fila = input[0] - 'A';
-                columna = col - 1;
-                return;
+                return (f, c);
             }
-            Console.WriteLine("Entrada inválida. Intenta de nuevo.");
+            MostrarError("Coordenada no válida. Usa el formato 'A5'.");
         }
     }
 
-    public static void PedirPosicionBarco(Barco barco, out int fila, out int columna, out bool esHorizontal)
+
+    public static (int fila, int columna) PedirCoordenadaDisparo()
     {
         while (true)
         {
-            Console.Write($"Coloca tu {barco.Nombre} (tamaño {barco.Size}). Ej: A5 H: ");
-            string input = Console.ReadLine()?.Trim().ToUpper() ?? "";
-            if (input.Length >= 3 &&
-                char.IsLetter(input[0]) &&
-                int.TryParse(input.Substring(1, input.Length - 2), out int col) &&
-                col >= 1 && col <= 10 &&
-                (input.EndsWith("H") || input.EndsWith("V")))
-            {
-                fila = input[0] - 'A';
-                columna = col - 1;
-                esHorizontal = input.EndsWith("H");
-                return;
-            }
-            Console.WriteLine("Entrada inválida. Intenta de nuevo.");
+            Console.Write("Coordenadas de disparo (Ej: B3): ");
+            if (TryParsePosicion(Console.ReadLine()?.Trim().ToUpper(), out int f, out int c)) return (f, c);
+            MostrarError("Coordenada no válida.");
         }
     }
 
-    public static void MostrarResultadoDisparo(ResultadoDisparo resultado)
+    private static bool TryParsePosicion(string input, out int f, out int c)
+    {
+        f = c = -1;
+        if (string.IsNullOrEmpty(input) || input.Length < 2) return false;
+        f = input[0] - 'A';
+        bool numValido = int.TryParse(input.Substring(1), out int colUser);
+        c = colUser - 1;
+        return f >= 0 && f < 10 && numValido && c >= 0 && c < 10;
+    }
+
+    public static void MostrarResultadoDisparo(ResultadoDisparo resultado, string atacante)
     {
         switch (resultado)
         {
@@ -138,24 +140,20 @@ public static class Renderizador
         }
     }
 
-    public static void MostrarDisparoCPU((int f, int c) objetivo, ResultadoDisparo resultado)
+    public static void MostrarDisparoCPU(int f, int c, ResultadoDisparo resultado)
     {
-        char letra = (char)('A' + objetivo.f);
-        Console.WriteLine($"La CPU dispara a {letra}{objetivo.c + 1}...");
-        MostrarResultadoDisparo(resultado);
+        char letra = (char)('A' + f);
+        Console.WriteLine($"La CPU dispara a {letra}{c + 1}...");
+        MostrarResultadoDisparo(resultado, "La CPU");
     }
 
-    public static void MostrarResultadoFinal(Jugador jugador, CPU cpu)
+    public static void MostrarResultadoFinal(bool jugadorGana, Jugador jugador, CPU cpu)
     {
         Console.WriteLine();
-        if (jugador.Tablero.BarcosRestantes == 0)
-            Console.WriteLine("¡La CPU gana! Mejor suerte la próxima vez.");
-        else
+        if (jugadorGana)
             Console.WriteLine($"¡{jugador.Nombre} gana! ¡Felicidades!");
+        else
+            Console.WriteLine("¡La CPU gana! Mejor suerte la próxima vez.");
     }
 
-    public static void MostrarError(string mensaje)
-    {
-        Console.WriteLine($"Error: {mensaje}");
-    }
 }

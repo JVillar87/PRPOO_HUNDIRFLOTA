@@ -11,7 +11,7 @@ public class CPU : Jugador
     {
         disparosPendientes = new List<(int, int)>();
 
-        //Coordenadas
+        //Lista de coordenadas
         for (int f = 0; f < 10; f++)
             for (int c = 0; c < 10; c++)
             {
@@ -27,10 +27,15 @@ public class CPU : Jugador
         }
     }
 
+    /// <summary>
+    /// Devuelve la siguiente coordenada de la lista.
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
     public (int f, int c) ElegirObjetivo()
     {
         if (disparosPendientes.Count == 0)
-            throw new InvalidOperationException("La CPU no tiene más coordenadas para disparar");
+            throw new InvalidOperationException("No hay coordenadas para disparar.");
 
         var objetivo = disparosPendientes[0];
         disparosPendientes.RemoveAt(0);
@@ -38,11 +43,13 @@ public class CPU : Jugador
         return objetivo;
     }
 
-    public void ColocarFlotaAleatoria()
+    /// <summary>
+    /// Coloca todos los barcos aleatoriamente.
+    /// </summary>
+    /// <param name="flota"></param>
+    public void ColocarFlotaAleatoria(List<Barco> flota)
     {
-        var barcos = Flota.CrearFlota();
-
-        foreach (var barco in barcos)
+        foreach (var barco in flota)
         {
             bool colocado = false;
 

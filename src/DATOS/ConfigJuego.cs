@@ -1,7 +1,17 @@
 using HundirLaFlota.Dominio;
 using HundirLaFlota.Motor;
+using System;
+using System.IO;
+using System.Text.Json;
+
 namespace HundirLaFlota.Datos;
 
+public enum NivelDificultad
+{
+    Facil,
+    Medio,
+    Dificil
+}
 public class ConfigJuego
 {
     public string NombreJugador { get; set; } = "Jugador";
@@ -18,11 +28,5 @@ public class ConfigJuego
     public override string ToString()
     {
         return $"Jugador: {NombreJugador}, Dificultad CPU: {DificultadCPU}, Fecha: {FechaConfiguracion}";
-    }
-
-    public void Guardar(string rutaArchivo)
-    {
-        string json = System.Text.Json.JsonSerializer.Serialize(this);
-        File.WriteAllText(rutaArchivo, json);
     }
 }
