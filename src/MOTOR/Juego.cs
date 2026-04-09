@@ -30,42 +30,76 @@ public class Juego
         BuclePrincipal();
         FinalizarPartida();
     }
-
     private void ProcesarColocacion()
     {
-        //CPU coloca su flota de forma aleatoria
+        //CPU COLOCA FLOTA ALEATORIAMENTE
         cpu.ColocarFlotaAleatoria(Flota.CrearFlota());
+
+        //PREGUNTAMOS A HUMANO SI QUIERE COLOCAR FLOTA ALEATORIAMENTE O MANUALMENTE
+        Renderizador.MostrarMensaje("¿Deseas colocar tus barcos aleatoriamente? (S/N): ");
+        string respuesta = Console.ReadLine()?.Trim().ToUpper() ?? "N";
+
+        if (respuesta == "S")
+        {
+            ColocarFlotaHumanaAleatoria();
+        }
+        else
+        {
+            ColocarFlotaHumanaManual();
+        }
+
+        Renderizador.MostrarMensaje("\n¡Flota lista! Presiona una tecla para empezar la batalla...");
+        Console.ReadKey();
+    }
+
+    private void ColocarFlotaHumanaManual()
+    {
+        var barcosAColocar = Flota.CrearFlota();
+        foreach (var barco in barcosAColocar)
+        {
+            bool colocado = false;
+            while (!colocado)
+            {
+                Renderizador.MostrarTablerosBatalla(humano.Tablero, cpu.Tablero);
+                Renderizador.MostrarMensaje($"Colocando {barco.Nombre} ({barco.Size} casillas)");
+
+                var (fila, columna) = Renderizador.PedirCoordenadas();
+
+                // Intenta Horizontal, si no, intenta Vertical
+                if (humano.Tablero.ColocarBarco(barco, fila, columna, true)) colocado = true;
+                else if (humano.Tablero.ColocarBarco(barco, fila, columna, false)) colocado = true;
+                else Renderizador.MostrarError("No cabe en ninguna dirección o hay un barco allí.");
+            }
+        }
+        Renderizador.MostrarMensaje("¡Flota lista! Presiona Enter para la batalla...");
+        Console.ReadKey();
+    }
+
+    private void ColocarFlotaHumanaAleatoria()
+    {
+        Random rnd = new Random();
         var barcosAColocar = Flota.CrearFlota();
 
-            foreach (var barco in barcosAColocar)
+        foreach (var barco in barcosAColocar)
+        {
+            bool colocado = false;
+            while (!colocado)
             {
-                bool colocado = false;
-                    while (!colocado)
-                    {
-                        Renderizador.MostrarTablerosBatalla(humano.Tablero, cpu.Tablero);
-                        Renderizador.MostrarMensaje($"Colocando {barco.Nombre} ({barco.Size} casillas)");
+                int f = rnd.Next(0, 10);
+                int c = rnd.Next(0, 10);
+                // Elige aleatoriamente entre Horizontal (true) o Vertical (false)
+                bool horizontal = rnd.Next(0, 2) == 0;
 
-                        var (fila, columna) = Renderizador.PedirCoordenadas();
-
-                        // Lógica: Intenta Horizontal(true), si no puede, intenta Vertical(false)
-                        if (humano.Tablero.ColocarBarco(barco, fila, columna, true))
-                        {
-                            colocado = true;
-                        }
-                        else if (humano.Tablero.ColocarBarco(barco, fila, columna, false))
-                        {
-                            colocado = true;
-                        }
-                        else
-                        {
-                            Renderizador.MostrarError("No cabe en ninguna dirección o hay un barco allí.");
-                        }
-                    }
+                if (humano.Tablero.ColocarBarco(barco, f, c, horizontal))
+                {
+                    colocado = true;
                 }
-                Renderizador.MostrarMensaje("¡Flota lista! Presiona Enter para la batalla...");
-                Console.ReadKey();
             }
-    
+        }
+        //FLOTA COLOCADA, MOSTRAMOS TABLEROS PARA QUE VEAN SU POSICIÓN
+        Renderizador.MostrarTablerosBatalla(humano.Tablero, cpu.Tablero);
+        Renderizador.MostrarMensaje("Tu flota ha sido desplegada por el alto mando.");
+    }
 
     private void BuclePrincipal()
     {

@@ -13,6 +13,7 @@ namespace HundirLaFlota
             Console.Title = "Hundir la Flota - Proyecto POO";
             bool salir = false;
 
+            //MENÚ PRINCIPAL
             while (!salir)
             {
                 MostrarMenuPrincipal();
@@ -51,6 +52,7 @@ namespace HundirLaFlota
             Console.Write("\n" + new string(' ', 15) + "Seleccione una opción: ");
         }
 
+        
         static void IniciarNuevaPartida()
         {
             Console.Clear();
