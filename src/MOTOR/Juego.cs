@@ -33,44 +33,38 @@ public class Juego
 
     private void ProcesarColocacion()
     {
-        // Barcos invisibles para CPU
+        //CPU coloca su flota de forma aleatoria
         cpu.ColocarFlotaAleatoria(Flota.CrearFlota());
         var barcosAColocar = Flota.CrearFlota();
 
-        // 2. El usuario coloca sus barcos uno a uno
-        foreach (var barco in barcosAColocar)
-        {
-            bool colocado = false;
-            while (!colocado)
+            foreach (var barco in barcosAColocar)
             {
-                Renderizador.MostrarTablerosBatalla(humano.Tablero, cpu.Tablero);
+                bool colocado = false;
+                    while (!colocado)
+                    {
+                        Renderizador.MostrarTablerosBatalla(humano.Tablero, cpu.Tablero);
+                        Renderizador.MostrarMensaje($"Colocando {barco.Nombre} ({barco.Size} casillas)");
 
-                Renderizador.MostrarMensaje($"Posicionando {barco.Nombre} ({barco.Size} casillas)");
-                Renderizador.MostrarMensaje("Se intentará colocar en Horizontal; si no cabe, en Vertical.");
+                        var (fila, columna) = Renderizador.PedirCoordenadas();
 
-                
-                var (fila, columna) = Renderizador.PedirCoordenadas();
-
-                //Colocamos primero en Horizontal (true)
-                if (humano.Tablero.ColocarBarco(barco, fila, columna, true))
-                {
-                    colocado = true;
+                        // Lógica: Intenta Horizontal(true), si no puede, intenta Vertical(false)
+                        if (humano.Tablero.ColocarBarco(barco, fila, columna, true))
+                        {
+                            colocado = true;
+                        }
+                        else if (humano.Tablero.ColocarBarco(barco, fila, columna, false))
+                        {
+                            colocado = true;
+                        }
+                        else
+                        {
+                            Renderizador.MostrarError("No cabe en ninguna dirección o hay un barco allí.");
+                        }
+                    }
                 }
-                // Si falla, intentamos en Vertical (false)
-                else if (humano.Tablero.ColocarBarco(barco, fila, columna, false))
-                {
-                    colocado = true;
-                }
-                else
-                {
-                    Renderizador.MostrarError("El barco no cabe en esa posición (ni H ni V) o hay otro barco.");
-                }
+                Renderizador.MostrarMensaje("¡Flota lista! Presiona Enter para la batalla...");
+                Console.ReadKey();
             }
-        }
-
-        Renderizador.MostrarMensaje("¡Flota desplegada! Presiona una tecla para empezar la batalla...");
-        Console.ReadKey();
-    }
     
 
     private void BuclePrincipal()
